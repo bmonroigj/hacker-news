@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.HackerNews" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
-        <item name="colorOnPrimary">@color/primaryLightTextColor</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/primary_light_text</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/primaryLightColor</item>
-        <item name="colorSecondaryVariant">@color/primaryColor</item>
-        <item name="colorOnSecondary">@color/primaryDarkTextColor</item>
+        <item name="colorSecondary">@color/primary_light</item>
+        <item name="colorSecondaryVariant">@color/primary</item>
+        <item name="colorOnSecondary">@color/primary_dark_text</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

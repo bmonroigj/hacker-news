@@ -1,11 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
+
+    buildFeatures {
+        dataBinding true
+    }
 
     defaultConfig {
         applicationId "bmj.android.hackernews"
@@ -42,6 +49,39 @@ dependencies {
     // UI dependencies
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$rootProject.swipeRefreshVersion"
+
+    // Coroutines: for asynchronous code execution
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+
+    // Jetpack Lifecycle Components: LiveData & ViewModel
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$rootProject.navigationVersion"
+
+    // Retrofit2: for API integration
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$rootProject.retrofitVersion"
+
+    // Moshi: for Kotlin/JSON serialization/deserialization
+    implementation "com.squareup.moshi:moshi:$rootProject.moshiVersion"
+    implementation "com.squareup.moshi:moshi-adapters:$rootProject.moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$rootProject.moshiVersion"
+
+    // Room: for SQLite Database Management
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+
+    // Hilt: for Dependency Injection
+    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
 
     // Testing dependencies
     testImplementation "junit:junit:$rootProject.junitVersion"

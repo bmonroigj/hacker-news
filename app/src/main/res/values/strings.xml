@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Hacker News</string>
+    <string name="delete">Delete</string>
+    <string name="string_separator">-</string>
 </resources>

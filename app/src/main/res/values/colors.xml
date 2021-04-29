@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#f07530</color>
-    <color name="primaryLightColor">#ffa65e</color>
-    <color name="primaryDarkColor">#b74600</color>
-    <color name="primaryLightTextColor">#ffffff</color>
-    <color name="primaryDarkTextColor">#000000</color>
+    <color name="primary">#f07530</color>
+    <color name="primary_light">#ffa65e</color>
+    <color name="primary_dark">#b74600</color>
+    <color name="primary_light_text">#ffffff</color>
+    <color name="primary_dark_text">#000000</color>
+    <color name="delete_red">#CC0000</color>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_story"
+    app:startDestination="@id/article_list_fragment">
+
+    <fragment
+        android:id="@+id/article_list_fragment"
+        android:name="bmj.android.hackernews.ui.article.listview.fragment.ArticleListFragment"
+        tools:layout="@layout/fragment_article_list">
+
+    </fragment>
+
+</navigation>
