@@ -1,6 +1,7 @@
 package bmj.android.hackernews.ui.article.listview.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class ArticleListFragment : Fragment() {
@@ -53,7 +55,7 @@ class ArticleListFragment : Fragment() {
         adapter.addLoadStateListener { loadState ->
             // show empty list
             val isListEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
-//            showEmptyList(isListEmpty)
+            showEmptyList(isListEmpty)
 
             // Show loading spinner during initial load or refresh.
             binding.loadingIndicator.isVisible = loadState.mediator?.refresh is LoadState.Loading
@@ -65,20 +67,33 @@ class ArticleListFragment : Fragment() {
         }
 
         subscribeUi()
-        return binding.root
-    }
 
-    private fun subscribeUi() {
-        fetchJob?.cancel()
-        fetchJob = viewLifecycleOwner.lifecycleScope.launch {
-            // Scroll to top when the list is refreshed from network.
+        // Scroll to top when the list is refreshed from network.
+        lifecycleScope.launch {
             adapter.loadStateFlow
                 // Only emit when REFRESH LoadState for RemoteMediator changes.
                 .distinctUntilChangedBy { it.refresh }
                 // Only react to cases where Remote REFRESH completes i.e., NotLoading.
                 .filter { it.refresh is LoadState.NotLoading }
                 .collect { binding.articleList.scrollToPosition(0) }
+        }
+        return binding.root
+    }
 
+    private fun showEmptyList(show: Boolean) {
+        if (show) {
+            binding.emptyList.visibility = View.VISIBLE
+            binding.articleList.visibility = View.GONE
+            adapter.refresh()
+        } else {
+            binding.emptyList.visibility = View.GONE
+            binding.articleList.visibility = View.VISIBLE
+        }
+    }
+
+    private fun subscribeUi() {
+        fetchJob?.cancel()
+        fetchJob = viewLifecycleOwner.lifecycleScope.launch {
             articleListViewModel.fetchArticles().collectLatest { articles ->
                 adapter.submitData(articles)
                 binding.refreshTrigger.isRefreshing = false
