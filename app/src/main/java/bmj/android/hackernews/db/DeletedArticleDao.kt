@@ -6,6 +6,9 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import bmj.android.hackernews.model.DeletedArticle
 
+/**
+ * Data access object for [DeletedArticle]
+ */
 @Dao
 interface DeletedArticleDao {
 

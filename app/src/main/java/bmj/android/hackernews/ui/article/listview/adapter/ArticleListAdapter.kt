@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import bmj.android.hackernews.databinding.ItemArticleListBinding
 import bmj.android.hackernews.model.Article
 import bmj.android.hackernews.ui.article.listview.fragment.ArticleListFragmentDirections
 
 class ArticleListAdapter :
-    ListAdapter<Article, ArticleListAdapter.ArticleViewHolder>(ARTICLE_COMPARATOR) {
+    PagingDataAdapter<Article, ArticleListAdapter.ArticleViewHolder>(ARTICLE_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         return ArticleViewHolder(
@@ -26,10 +26,12 @@ class ArticleListAdapter :
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = getItem(position)
-        holder.bind(article)
+        if (article != null) {
+            holder.bind(article)
+        }
     }
 
-    fun getArticle(position: Int): Article = getItem(position)
+    fun getArticle(position: Int): Article? = getItem(position)
 
     class ArticleViewHolder(
         val binding: ItemArticleListBinding

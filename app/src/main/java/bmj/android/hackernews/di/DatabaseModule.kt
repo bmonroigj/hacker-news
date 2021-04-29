@@ -9,6 +9,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Database instance provider for Dependency Injection
+ */
 @InstallIn(SingletonComponent::class)
 @Module
 class DatabaseModule {

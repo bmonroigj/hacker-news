@@ -10,6 +10,9 @@ import dagger.hilt.components.SingletonComponent
 import java.util.*
 import javax.inject.Singleton
 
+/**
+ * Network and JSON parser instance provider for Dependency Injection
+ */
 @InstallIn(SingletonComponent::class)
 @Module
 class NetworkModule {

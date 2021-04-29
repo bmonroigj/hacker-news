@@ -38,6 +38,7 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
 }
 
@@ -78,6 +79,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+
+    // Paging3: for Data Pagination
+    implementation "androidx.paging:paging-runtime-ktx:$rootProject.pagingVersion"
 
     // Hilt: for Dependency Injection
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"

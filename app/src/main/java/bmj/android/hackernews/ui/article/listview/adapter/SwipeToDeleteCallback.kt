@@ -1,6 +1,5 @@
 package bmj.android.hackernews.ui.article.listview.adapter
 
-import android.content.Context
 import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

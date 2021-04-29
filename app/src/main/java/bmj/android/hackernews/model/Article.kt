@@ -5,6 +5,9 @@ import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 import java.util.*
 
+/**
+ * Article model representation
+ */
 @Entity(tableName = "articles")
 @JsonClass(generateAdapter = true, generator = "ArticleJsonAdapter")
 data class Article(

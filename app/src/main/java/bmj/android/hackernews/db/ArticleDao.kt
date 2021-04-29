@@ -1,17 +1,20 @@
 package bmj.android.hackernews.db
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import bmj.android.hackernews.model.Article
-import kotlinx.coroutines.flow.Flow
 
+/**
+ * Data access object for [Article]
+ */
 @Dao
 interface ArticleDao {
 
     @Query("SELECT * FROM articles ORDER BY date DESC")
-    fun getArticles(): Flow<List<Article>>
+    fun getArticles(): PagingSource<Int, Article>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(articles: List<Article>)

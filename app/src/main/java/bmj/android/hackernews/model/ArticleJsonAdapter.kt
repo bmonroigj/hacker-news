@@ -7,6 +7,12 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.internal.Util
 import java.util.*
 
+/**
+ * Adapter for Kotlin/JSON serialization/deserialization of [Article]
+ * Handle data cases:
+ *   - story_title or title
+ *   - story_url or url
+ */
 public class ArticleJsonAdapter(
     moshi: Moshi
 ) : JsonAdapter<Article>() {
