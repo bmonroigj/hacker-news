@@ -58,8 +58,6 @@ class ArticleListFragment : Fragment() {
                 (loadState.refresh is LoadState.NotLoading || loadState.mediator?.refresh is LoadState.Error) && adapter.itemCount == 0
             showEmptyList(isListEmpty)
 
-            // Only show the list if refresh succeeds.
-            binding.articleList.isVisible = loadState.mediator?.refresh is LoadState.NotLoading
             // Show loading spinner during initial load or refresh.
             binding.loadingIndicator.isVisible = loadState.mediator?.refresh is LoadState.Loading
         }

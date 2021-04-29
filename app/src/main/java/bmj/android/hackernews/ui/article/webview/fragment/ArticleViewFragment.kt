@@ -80,7 +80,6 @@ class ArticleViewFragment : Fragment() {
     }
 
     private fun setupRefresh(swipeRefresh: SwipeRefreshLayout, progressBar: ProgressBar) {
-        val metrics = resources.displayMetrics
         swipeRefresh.apply {
             setOnRefreshListener {
                 webView.reload()
@@ -88,7 +87,6 @@ class ArticleViewFragment : Fragment() {
                 swipeRefresh.isRefreshing = false
             }
             setColorSchemeResources(R.color.primary_light)
-            setDistanceToTriggerSync(256 * metrics.density.toInt())
         }
     }
 
