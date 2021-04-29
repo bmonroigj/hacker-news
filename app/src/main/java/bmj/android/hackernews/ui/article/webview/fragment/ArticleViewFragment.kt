@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import bmj.android.hackernews.R
 import bmj.android.hackernews.databinding.FragmentArticleViewBinding
 import bmj.android.hackernews.ui.article.webview.ArticleWebViewClient
 import com.google.android.material.appbar.MaterialToolbar
@@ -79,10 +80,15 @@ class ArticleViewFragment : Fragment() {
     }
 
     private fun setupRefresh(swipeRefresh: SwipeRefreshLayout, progressBar: ProgressBar) {
-        swipeRefresh.setOnRefreshListener {
-            webView.reload()
-            progressBar.visibility = View.VISIBLE
-            swipeRefresh.isRefreshing = false
+        val metrics = resources.displayMetrics
+        swipeRefresh.apply {
+            setOnRefreshListener {
+                webView.reload()
+                progressBar.visibility = View.VISIBLE
+                swipeRefresh.isRefreshing = false
+            }
+            setColorSchemeResources(R.color.primary_light)
+            setDistanceToTriggerSync(256 * metrics.density.toInt())
         }
     }
 

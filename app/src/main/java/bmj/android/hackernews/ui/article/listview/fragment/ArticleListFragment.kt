@@ -1,7 +1,6 @@
 package bmj.android.hackernews.ui.article.listview.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import bmj.android.hackernews.R
 import bmj.android.hackernews.databinding.FragmentArticleListBinding
 import bmj.android.hackernews.ui.article.listview.adapter.ArticleListAdapter
 import bmj.android.hackernews.ui.article.listview.adapter.SwipeToDeleteCallback
@@ -53,19 +53,18 @@ class ArticleListFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.articleList)
 
         adapter.addLoadStateListener { loadState ->
-            // show empty list
-            val isListEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+            // Show empty list if (state is not loading or initial load or refresh fails) and adapter is empty.
+            val isListEmpty =
+                (loadState.refresh is LoadState.NotLoading || loadState.mediator?.refresh is LoadState.Error) && adapter.itemCount == 0
             showEmptyList(isListEmpty)
 
+            // Only show the list if refresh succeeds.
+            binding.articleList.isVisible = loadState.mediator?.refresh is LoadState.NotLoading
             // Show loading spinner during initial load or refresh.
             binding.loadingIndicator.isVisible = loadState.mediator?.refresh is LoadState.Loading
         }
 
-        binding.refreshTrigger.setOnRefreshListener {
-            adapter.refresh()
-            binding.refreshTrigger.isRefreshing = false
-        }
-
+        setupRefreshTriggerLayout()
         subscribeUi()
 
         // Scroll to top when the list is refreshed from network.
@@ -80,11 +79,22 @@ class ArticleListFragment : Fragment() {
         return binding.root
     }
 
+    private fun setupRefreshTriggerLayout() {
+        val metrics = resources.displayMetrics
+        binding.refreshTrigger.apply {
+            setOnRefreshListener {
+                binding.refreshTrigger.isRefreshing = false
+                adapter.refresh()
+            }
+            setColorSchemeResources(R.color.primary_light)
+            setDistanceToTriggerSync(256 * metrics.density.toInt())
+        }
+    }
+
     private fun showEmptyList(show: Boolean) {
         if (show) {
             binding.emptyList.visibility = View.VISIBLE
             binding.articleList.visibility = View.GONE
-            adapter.refresh()
         } else {
             binding.emptyList.visibility = View.GONE
             binding.articleList.visibility = View.VISIBLE
@@ -95,8 +105,9 @@ class ArticleListFragment : Fragment() {
         fetchJob?.cancel()
         fetchJob = viewLifecycleOwner.lifecycleScope.launch {
             articleListViewModel.fetchArticles().collectLatest { articles ->
-                adapter.submitData(articles)
                 binding.refreshTrigger.isRefreshing = false
+                adapter.submitData(articles)
+                showEmptyList(adapter.itemCount == 0)
             }
         }
     }
