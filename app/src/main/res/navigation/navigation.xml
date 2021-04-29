@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_story"
+    android:id="@+id/navigation"
     app:startDestination="@id/article_list_fragment">
 
     <fragment
@@ -10,6 +10,23 @@
         android:name="bmj.android.hackernews.ui.article.listview.fragment.ArticleListFragment"
         tools:layout="@layout/fragment_article_list">
 
+        <action
+            android:id="@+id/action_article_list_fragment_to_article_view_fragment"
+            app:destination="@id/article_view_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/article_view_fragment"
+        android:name="bmj.android.hackernews.ui.article.webview.fragment.ArticleViewFragment"
+        tools:layout="@layout/fragment_article_view">
+
+        <argument
+            android:name="articleUrl"
+            app:argType="string" />
     </fragment>
 
 </navigation>

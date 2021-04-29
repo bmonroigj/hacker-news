@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ArticleDao {
 
-    @Query("SELECT * FROM articles")
+    @Query("SELECT * FROM articles ORDER BY date DESC")
     fun getArticles(): Flow<List<Article>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
