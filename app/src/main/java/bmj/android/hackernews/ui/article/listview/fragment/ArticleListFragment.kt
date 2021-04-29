@@ -13,12 +13,14 @@ import bmj.android.hackernews.databinding.FragmentArticleListBinding
 import bmj.android.hackernews.ui.article.listview.adapter.ArticleListAdapter
 import bmj.android.hackernews.ui.article.listview.adapter.SwipeToDeleteCallback
 import bmj.android.hackernews.ui.article.listview.viewmodel.ArticleListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class ArticleListFragment : Fragment() {
     private lateinit var binding: FragmentArticleListBinding
     private var fetchJob: Job? = null
@@ -42,21 +44,19 @@ class ArticleListFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.articleList)
 
         binding.refreshTrigger.setOnRefreshListener {
-            fetchArticles()
+            articleListViewModel.fetchArticles()
+            binding.loadingIndicator.visibility = View.VISIBLE
             binding.refreshTrigger.isRefreshing = false
         }
 
-        fetchArticles()
+        subscribeUi()
         return binding.root
     }
 
-    private fun fetchArticles() {
+    private fun subscribeUi() {
         fetchJob?.cancel()
         fetchJob = viewLifecycleOwner.lifecycleScope.launch {
-            withContext(Dispatchers.Main) {
-                binding.loadingIndicator.visibility = View.VISIBLE
-            }
-            articleListViewModel.fetchArticles().collectLatest { articles ->
+            articleListViewModel.articles.collectLatest { articles ->
                 withContext(Dispatchers.Main) {
                     binding.loadingIndicator.visibility = View.GONE
                 }
