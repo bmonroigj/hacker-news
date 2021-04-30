@@ -1,4 +1,4 @@
-# Hacker News - Android App
+# Hacker News - Android App ![Build Status](https://github.com/bmonroigj/hacker-news/actions/workflows/main.yml/badge.svg)
 
 [<img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" hspace="10" vspace="10">](/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
