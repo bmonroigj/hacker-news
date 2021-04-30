@@ -27,9 +27,9 @@ class ArticleRemoteMediator(
         try {
             val response = api.fetchArticles()
             val deletedArticles = db.deletedArticleDao().getDeletedArticles()
-                .map { deletedArticle -> deletedArticle.id }
+                .map { deletedArticle -> deletedArticle.url }
             val articles =
-                response.articles.filter { article -> !deletedArticles.contains(article.id) }
+                response.articles.filter { article -> !deletedArticles.contains(article.url) }
             db.withTransaction {
                 // clear all tables in the database
                 if (loadType == LoadType.REFRESH) {

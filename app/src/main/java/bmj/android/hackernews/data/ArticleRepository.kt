@@ -37,10 +37,10 @@ class ArticleRepository @Inject constructor(
         ).flow
     }
 
-    suspend fun deleteArticle(articleId: Long) {
+    suspend fun deleteArticle(articleId: Long, articleUrl: String) {
         db.withTransaction {
             db.articleDao().deleteArticle(articleId)
-            db.deletedArticleDao().addDeletedArticle(DeletedArticle(articleId))
+            db.deletedArticleDao().addDeletedArticle(DeletedArticle(articleId, articleUrl))
         }
     }
 

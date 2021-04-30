@@ -27,9 +27,9 @@ class ArticleListViewModel @Inject constructor(private val repository: ArticleRe
         return newResult
     }
 
-    fun deleteArticle(articleId: Long) {
+    fun deleteArticle(articleId: Long, articleUrl: String) {
         viewModelScope.launch {
-            repository.deleteArticle(articleId)
+            repository.deleteArticle(articleId, articleUrl)
         }
     }
 }

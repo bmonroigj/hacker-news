@@ -45,7 +45,7 @@ class ArticleListFragment : Fragment() {
                 val article = adapter.getArticle(viewHolder.absoluteAdapterPosition)
                 if (article != null) {
                     // Delete article from database triggers adapter data invalidate
-                    articleListViewModel.deleteArticle(article.id)
+                    articleListViewModel.deleteArticle(article.id, article.url)
                 }
             }
         }
